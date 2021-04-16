@@ -7,9 +7,7 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import Atm_Cread.UlogingRead;
-import Atm_Domain.Balance;
 import Atm_Domain.Currentbalance;
 import Atm_Domain.User;
 import Atm_Domain.Userlogin;
@@ -79,7 +77,7 @@ public void accountType(String s) throws Exception{
 		break;
 	}
 	case 2: {
-//		savingsAccount(s);
+		savingsAccount(s);
 		break;
 	}
 	case 3: {
@@ -122,7 +120,7 @@ public void currentAccount(String s) throws Exception {
 		break;
 	}
 	case 3: {
-//		currentdeposit();
+		currentdeposit(s);
 		currentAccount(s);
 		break;
 	}
@@ -142,54 +140,54 @@ public void currentAccount(String s) throws Exception {
 		throw new IllegalArgumentException("Unexpected value: " + choice);
 	}
 	}
-//public void savingsAccount(String s) throws Exception {
-//	System.out.println("\n\t SAVINGS ACCOUNT");
-//	System.out.println("\t\t Type 1: View BAlance");
-//	System.out.println("\t\t Type 2: WIthdrow fund");
-//	System.out.println("\t\t TYpe 3: Deposit fund");
-//	System.out.println("\t\t Type 4: return to account type");
-//	System.out.println("\t\t Type 5: Exit");
-//	System.out.println("Choice: ");
-//	byte choice= Atm.input.nextByte();
-//	switch (choice) {
-//	case 1: {
-//		System.out.println("\n your Current balace is:"+monyeformate.format(getSavingsBalance()));
-//		if(getSavingsBalance()<=0) {
-//			System.err.println("oops u balace is zero");
-//			System.out.println("please select Type 3 to Depocit fund");
-//			savingsAccount(s);
-//		}
-//		
-//		else{
-//			accountType(s);
-//		}
-//		break;
-//	}
-//	case 2: {
-//		savingtWithdrowel();
-//		accountType(s);
-//		break;
-//	}
-//	case 3: {
-//		savingdeposit();
-//		savingsAccount(s);
-//		break;
-//	}
-//	case 4: {
-//		accountType(s);
-//		break;
-//	}
-//	case 5: {
-//		System.out.println("\t\t\n Thank u have nice DAY");
-//		System.exit(0);
-//
-//	}
-//	default:
-//		System.err.println("\t\t\n invalide  select currectly");
-//		savingsAccount(s);
-//		throw new IllegalArgumentException("Unexpected value: " + choice);
-//	}
-//}
+public void savingsAccount(String s) throws Exception {
+	System.out.println("\n\t SAVINGS ACCOUNT");
+	System.out.println("\t\t Type 1: View BAlance");
+	System.out.println("\t\t Type 2: WIthdrow fund");
+	System.out.println("\t\t TYpe 3: Deposit fund");
+	System.out.println("\t\t Type 4: return to account type");
+	System.out.println("\t\t Type 5: Exit");
+	System.out.println("Choice: ");
+	byte choice= Atm.input.nextByte();
+	switch (choice) {
+	case 1: {
+		System.out.println("\n your Current balace is:"+monyeformate.format(getSbalance(s)));
+		if(getCbalance(s)<=0) {
+			System.err.println("oops u balace is zero");
+			System.out.println("please select Type 3 to Depocit fund");
+			savingsAccount(s);
+		}
+		
+		else{
+			accountType(s);
+		}
+		break;
+	}
+	case 2: {
+		savingtWithdrowel(s);
+		accountType(s);
+		break;
+	}
+	case 3: {
+		savingdeposit(s);
+		savingsAccount(s);
+		break;
+	}
+	case 4: {
+		accountType(s);
+		break;
+	}
+	case 5: {
+		System.out.println("\t\t\n Thank u have nice DAY");
+		System.exit(0);
+
+	}
+	default:
+		System.err.println("\t\t\n invalide  select currectly");
+		savingsAccount(s);
+		throw new IllegalArgumentException("Unexpected value: " + choice);
+	}
+}
 public static double getCbalance(String s) throws ClassNotFoundException, SQLException {
 	String uuid=s;
 	double balance = 0;
@@ -200,7 +198,23 @@ public static double getCbalance(String s) throws ClassNotFoundException, SQLExc
 	while(rs.next()) {
 		balance=(rs.getDouble("balance"));
 	}
-
+connection.close();
+statement.close();
 return balance;
+}
+
+public static double getSbalance(String s) throws ClassNotFoundException, SQLException {
+	String uuid=s;
+	double balance=0;
+	connection=relationdatabaseinfo.getConnection();
+	statement=connection.prepareStatement("select balance from Sevingsbalance where uid=?");
+	statement.setString(1, uuid);
+	ResultSet rs =statement.executeQuery();
+	while(rs.next()) {
+		balance=(rs.getDouble("balance"));
+	}
+	connection.close();
+	statement.close();
+	return balance;
 }
 }
