@@ -1,8 +1,8 @@
 package Atm_Domain;
 
 public class Currentbalance {
-	private double cBalance;
-	public double getCBalance() {
+	private  double cBalance;
+	public  double getCBalance() {
 		return cBalance;
 	}
 	public void setCBalance(double cBalance) {
