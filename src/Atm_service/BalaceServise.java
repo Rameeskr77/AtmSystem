@@ -50,7 +50,7 @@ public class BalaceServise extends Currentbalance{
 	
 	
 		public void savingtWithdrowel(String s) throws Exception {
-			System.out.println("Your current Acoount balace is"+monyeformate.format(UserService.getCbalance(s) ));
+			System.out.println("Your current Acoount balace is"+monyeformate.format(UserService.getSbalance(s) ));
 			System.out.println("Enter the Amout withdorw");
 			double amount=Atm.input.nextDouble();
 			if((UserService.getSbalance(s)-amount)>0) {
@@ -65,14 +65,14 @@ public class BalaceServise extends Currentbalance{
 						System.out.println("\007"+"\n** insufitiond balace");
 			}
 		public void savingdeposit(String s) throws Exception {
-			System.out.println("your current acount balance"+monyeformate.format(UserService.getSbalance(null)));
+			System.out.println("your current acount balance"+monyeformate.format(UserService.getSbalance(s)));
 			System.out.println("Enter the amound depocit");
 			double amount= Atm.input.nextDouble();
 			if(UserService.getSbalance(s)<=0) {
 				sdepositWithzero(s, amount);
 			}
 			else if((UserService.getSbalance(s)+amount)>0) {
-			savingBalnceDeoocit(amount);
+			updateSdbalance(s,amount);
 				System.out.println("Amount is deposit succssfully");
 				Thread.sleep(600);
 				System.out.println("\n you current acount balance"+monyeformate.format(UserService.getSbalance(s)));

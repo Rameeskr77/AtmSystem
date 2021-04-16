@@ -152,7 +152,7 @@ public void savingsAccount(String s) throws Exception {
 	switch (choice) {
 	case 1: {
 		System.out.println("\n your Current balace is:"+monyeformate.format(getSbalance(s)));
-		if(getCbalance(s)<=0) {
+		if(getSbalance(s)<=0) {
 			System.err.println("oops u balace is zero");
 			System.out.println("please select Type 3 to Depocit fund");
 			savingsAccount(s);
